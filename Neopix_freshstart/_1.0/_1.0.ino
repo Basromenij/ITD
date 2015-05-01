@@ -13,7 +13,7 @@
 boolean status_energy = 1;
 int stepSize = 1;
 int x = 0;
-
+int telwaarde = 0;
 
 float fadeValue = 150;
 
@@ -68,6 +68,31 @@ void loop() {
           break;
         }
         delay(delayval); // Delay for a period of time (in milliseconds).
+      }
+    }
+  }
+
+  if (digitalRead(druk) == LOW) {
+    x = fadeValue;
+    Serial.print("waarde van x: ");
+    Serial.print("   ");
+    Serial.println(digitalRead(druk));
+    pixels1.setPixelColor(0 , 0); // turns off neopix
+    pixels1.setPixelColor(1 , 0); // turns off neopix.
+    pixels1.setPixelColor(2 , 0 ); // turns off neopix
+    pixels2.setPixelColor(0, pixels2.Color(x, x, x)); // sets a white color for neopix with a brightness x
+    pixels2.setPixelColor(1, pixels2.Color(x, x, x)); // sets a white color for neopix with a brightness x
+    pixels2.setPixelColor(2, pixels2.Color(x, x, x)); // sets a white color for neopix with a brightness x.
+    pixels1.show(); // This sends the updated pixel color to the hardware.
+    pixels2.show(); // This sends the updated pixel color to the hardware.
+
+
+    telwaarde = digitalRead(teller);
+    if (telwaarde == HIGH) {
+      for (fadeValue ; fadeValue < 150; fadeValue += 1) {
+        Serial.print("hij is aan het tellen");
+        fadeValue ++;
+        break;
       }
     }
   }

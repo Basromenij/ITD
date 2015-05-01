@@ -5,6 +5,7 @@
 #define PIN1            3
 #define PIN2            5
 #define teller          8
+#define schakelaar      4
 #define druk            2
 
 #define NUMPIXELS1      4
@@ -27,6 +28,7 @@ void setup() {
   pinMode ( 6, INPUT_PULLUP);
   pinMode (teller, INPUT);
   pinMode (druk, INPUT);
+  pinMode (schakelaar, INPUT);
   //  pinMode (schakel, INPUT);
 
   pixels1.begin(); // This initializes the NeoPixel library.
@@ -93,6 +95,6 @@ void loop() {
       }
     }
   }
-      Serial.print("waarde van x: ");
-    Serial.println(x);
+  Serial.print("waarde van x: ");
+  Serial.println(x);
 }

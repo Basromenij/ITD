@@ -134,18 +134,18 @@ uint32_t Wheel(byte intensity) {
     ColorChanger = 1;
   }
 
-  float mappedintensity = map(intensity, 0, 150, 0, 10) * 0.01;
+  float mappedintensity = map(intensity, 0, 150, 0, 100) * 0.01;
 
   Serial.print(mappedintensity);
   Serial.print("       ");
   Serial.println(RainbowColor);
 
   if (RainbowColor < 35) {
-    return pixels1.Color(mappedintensity * (255 * RainbowColor), 255 * RainbowColor, 0);
+    return pixels1.Color(255 * mappedintensity, 0, 255 * mappedintensity);
   } else if (RainbowColor < 100) {
-    return pixels1.Color(mappedintensity * (255 * RainbowColor), 0, 255 * RainbowColor);
+    return pixels1.Color(mappedintensity * 255, 255 * mappedintensity , 0 );
   } else {
-    return pixels1.Color(0, 255 * RainbowColor, 255 * RainbowColor);
+    return pixels1.Color(0, 255 * mappedintensity, 255 * mappedintensity);
 
   }
 

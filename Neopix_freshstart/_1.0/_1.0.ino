@@ -22,6 +22,7 @@ Adafruit_NeoPixel pixels1 = Adafruit_NeoPixel(NUMPIXELS1, PIN1, NEO_GRB + NEO_KH
 Adafruit_NeoPixel pixels2 = Adafruit_NeoPixel(NUMPIXELS2, PIN2, NEO_GRB + NEO_KHZ800);
 
 int delayval = 50; // delay for half a second
+int delayval2 = 5; // delay for half a second
 
 void setup() {
 
@@ -43,9 +44,14 @@ void loop() {
     status_energy = 1;
   }
 
+  if (digitalRead(schakelaar) == HIGH) {
+    Serial.println("schakel doet het");
+  }
+
+
   if (status_energy == 1) {
 
-    if (digitalRead(druk) == HIGH) {
+    if (digitalRead(druk) == HIGH && digitalRead(schakelaar) == HIGH) {
       for (fadeValue ; fadeValue > 0; fadeValue -= stepSize) {
         x = fadeValue;
 
@@ -69,22 +75,43 @@ void loop() {
           break;
         }
         delay(delayval); // Delay for a period of time (in milliseconds).
+      
+    }
+    }
+
+    if (digitalRead(druk) == HIGH && digitalRead(schakelaar) == LOW) {
+      for (fadeValue ; fadeValue > 0; fadeValue -= stepSize) {
+        x = fadeValue;
+      for (int j = 0; j < x; j++) {
+        for (int i = 0; i < 3; i++) {
+          pixels1.setPixelColor(i, Wheel(j));
+          pixels2.setPixelColor(i, 0); // sets a white color for neopix with a brightness x
+          pixels1.show();
+          pixels2.show();
+        }
+        }
+        if (x == 0) {
+          status_energy = 0 ;
+          break;
+          Serial.println("waarde is nu een");
+        }
+        if ((digitalRead(druk)) == LOW)  {     // turn other led strip on
+          Serial.print(" hij komt in de break if");
+          break;
+        }
+        delay(delayval2);
       }
     }
   }
 
   if (digitalRead(druk) == LOW) {
     x = fadeValue;
-
-    pixels1.setPixelColor(0 , 0); // turns off neopix
-    pixels1.setPixelColor(1 , 0); // turns off neopix.
-    pixels1.setPixelColor(2 , 0 ); // turns off neopix
-    pixels2.setPixelColor(0, pixels2.Color(x, x, x)); // sets a white color for neopix with a brightness x
-    pixels2.setPixelColor(1, pixels2.Color(x, x, x)); // sets a white color for neopix with a brightness x
-    pixels2.setPixelColor(2, pixels2.Color(x, x, x)); // sets a white color for neopix with a brightness x.
-    pixels1.show(); // This sends the updated pixel color to the hardware.
-    pixels2.show(); // This sends the updated pixel color to the hardware.
-
+    for (int i = 0; i < 3; i++) {
+      pixels1.setPixelColor(i , 0); // turns off neopix
+      pixels2.setPixelColor(i, pixels2.Color(x, x, x)); // sets a white color for neopix with a brightness x
+      pixels1.show(); // This sends the updated pixel color to the hardware.
+      pixels2.show(); // This sends the updated pixel color to the hardware.
+    }
 
     telwaarde = digitalRead(teller);
     if (telwaarde == HIGH) {
@@ -97,4 +124,11 @@ void loop() {
   }
   Serial.print("waarde van x: ");
   Serial.println(x);
+}
+
+uint32_t Wheel(byte WheelPos) {
+  
+    return pixels1.Color(WheelPos,0, 0);
+  
+
 }

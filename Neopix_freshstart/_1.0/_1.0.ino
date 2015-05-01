@@ -46,8 +46,7 @@ void loop() {
     if (digitalRead(druk) == HIGH) {
       for (fadeValue ; fadeValue > 0; fadeValue -= stepSize) {
         x = fadeValue;
-        Serial.print("waarde van x: ");
-        Serial.println(x);
+
         Serial.println(digitalRead(druk));
         pixels1.setPixelColor(0, pixels1.Color(x, x, x)); // sets a white color for neopix with a brightness x
         pixels1.setPixelColor(1, pixels1.Color(x, x, x)); // sets a white color for neopix with a brightness x
@@ -74,9 +73,7 @@ void loop() {
 
   if (digitalRead(druk) == LOW) {
     x = fadeValue;
-    Serial.print("waarde van x: ");
-    Serial.print("   ");
-    Serial.println(digitalRead(druk));
+
     pixels1.setPixelColor(0 , 0); // turns off neopix
     pixels1.setPixelColor(1 , 0); // turns off neopix.
     pixels1.setPixelColor(2 , 0 ); // turns off neopix
@@ -96,4 +93,6 @@ void loop() {
       }
     }
   }
+      Serial.print("waarde van x: ");
+    Serial.println(x);
 }

@@ -50,9 +50,12 @@ void loop() {
         x = fadeValue;
 
         Serial.println(digitalRead(druk));
-        pixels1.setPixelColor(0, pixels1.Color(x, x, x)); // sets a white color for neopix with a brightness x
-        pixels1.setPixelColor(1, pixels1.Color(x, x, x)); // sets a white color for neopix with a brightness x
-        pixels1.setPixelColor(2, pixels1.Color(x, x, x)); // sets a white color for neopix with a brightness x
+        for(int j=0; j<x; j++) {
+    for(int i=0; i<3; i++) {
+      pixels1.setPixelColor(i, Wheel((i+j) & 255));
+    }
+    pixels1.show();
+  }
         pixels2.setPixelColor(0 , 0); // turns off neopix
         pixels2.setPixelColor(1 , 0); // turns off neopix
         pixels2.setPixelColor(2 , 0 ); // turns off neopix
@@ -97,4 +100,10 @@ void loop() {
   }
   Serial.print("waarde van x: ");
   Serial.println(x);
+}
+
+uint32_t Wheel(byte WheelPos) {
+  
+   return pixels1.Color(WheelPos * x, WheelPos * x, 0);
+  
 }

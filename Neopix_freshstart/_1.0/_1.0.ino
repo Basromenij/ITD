@@ -19,7 +19,9 @@ int r =                   0;
 int g =                   0;
 int b =                   0;
 
-int RainbowColor =       100;
+int Brightness =          150;
+
+int RainbowColor =       0;
 int ColorChanger =       1;
 
 float fadeValue =        150;
@@ -45,18 +47,6 @@ void setup() {
 
 void loop() {
 
-  //  if (digitalRead(druk) == HIGH) {
-  //    //    Serial.println("poepchineeeees");
-  //    status_energy = 1;
-  //  }
-  //
-  //  if (digitalRead(schakelaar) == HIGH) {
-  //  Serial.println("poepchineeeees");
-  // }
-  //
-  //   if (digitalRead(schakelaar) == LOW) {
-  //   Serial.println("chineesdekak");
-  // }
 
   if (status_energy == 1) {
 
@@ -121,7 +111,7 @@ void loop() {
 
     telwaarde = digitalRead(teller);
     if (telwaarde == HIGH) {
-      for (fadeValue ; fadeValue < 150; fadeValue += 1) {
+      for (fadeValue ; fadeValue < ; Brightness += 1) {
         Serial.print("hij is aan het tellen");
         fadeValue ++;
         break;
@@ -136,16 +126,21 @@ void loop() {
 
 uint32_t Wheel(byte intensity) {
 
-  RainbowColor = RainbowColor - ColorChanger;
-  if (RainbowColor == 0) {
-    RainbowColor = 150;
+  RainbowColor = RainbowColor + ColorChanger;
+  if (RainbowColor == 150) {
+    RainbowColor = 0 ;
   }
-//  if (RainbowColor == 0) {
-//    ColorChanger = 1;
-//  }
+
 
   float mappedintensity = map(intensity, 0, 150, 0, 100) * 0.01;
-  //  float mappedintensity = map(intensity, 0, 150, 0, 5) * 0.01;
+  
+  int MappedRainbowColor1 = map(RainbowColor, 0, 24, 0, Brightness);
+  int MappedRainbowColor2 = map(RainbowColor, 25, 49, Brightness, 0);
+  int MappedRainbowColor3 = map(RainbowColor, 50, 74, 0, Brightness);
+  int MappedRainbowColor4 = map(RainbowColor, 75, 99, Brightness, 0);
+  int MappedRainbowColor5 = map(RainbowColor, 100, 124, 0, Brightness);
+  int MappedRainbowColor6 = map(RainbowColor, 125, 150, Brightness, 0);
+
   Serial.print("mappedintesnity");
   Serial.print(mappedintensity);
   Serial.print("       ");
@@ -161,19 +156,38 @@ uint32_t Wheel(byte intensity) {
   Serial.print("b");
   Serial.println(b);
 
-  if (RainbowColor <= 50) {
-    r = 150 - RainbowColor;
+
+
+
+  if (RainbowColor <= 25) {
+    r = Brightness;
     g = 0;
-    b = RainbowColor ;
+    b = MappedRainbowColor1;
     return pixels1.Color(r * mappedintensity, g * mappedintensity, b * mappedintensity);
-  } if (RainbowColor <= 100) {
-    r = 0;
-    g = RainbowColor;
-    b = 150 - RainbowColor * 1,5;
+  } if (RainbowColor <= 50) {
+    r = MappedRainbowColor2;
+    g = 0;
+    b = Brightness;
     return pixels1.Color(r * mappedintensity, g * mappedintensity, b * mappedintensity );
-  } else {
-    r = RainbowColor;
-    g = 150 - RainbowColor;
+  } if (RainbowColor <= 75) {
+    r = 0;
+    g = MappedRainbowColor3;
+    b = Brightness;
+    return pixels1.Color(r * mappedintensity, g * mappedintensity, b * mappedintensity);
+  }
+  if (RainbowColor <= 100) {
+    r = 0;
+    g = Brightness;
+    b = MappedRainbowColor4;
+        return pixels1.Color(r * mappedintensity, g * mappedintensity, b * mappedintensity);
+  } if (RainbowColor <= 125) {
+    r = MappedRainbowColor5;
+    g = Brightness;
+    b = 0;
+    return pixels1.Color(r * mappedintensity, g * mappedintensity, b * mappedintensity );
+  } if (RainbowColor <= 150) {
+    r = Brightness;
+    g = MappedRainbowColor6;
     b =  0;
     return pixels1.Color(r * mappedintensity, g * mappedintensity, b * mappedintensity);
   }

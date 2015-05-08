@@ -15,9 +15,6 @@ boolean status_energy =   1;
 int stepSize =            1;
 int x =                   0;
 int telwaarde =           0;
-int r =                   0;
-int g =                   0;
-int b =                   0;
 
 int RainbowColor =       100;
 int ColorChanger =       1;
@@ -45,18 +42,11 @@ void setup() {
 
 void loop() {
 
-  //  if (digitalRead(druk) == HIGH) {
-  //    //    Serial.println("poepchineeeees");
-  //    status_energy = 1;
-  //  }
-  //
-  //  if (digitalRead(schakelaar) == HIGH) {
-  //  Serial.println("poepchineeeees");
-  // }
-  //
-  //   if (digitalRead(schakelaar) == LOW) {
-  //   Serial.println("chineesdekak");
-  // }
+  if (digitalRead(druk) == HIGH) {
+    //    Serial.println("poepchineeeees");
+    status_energy = 1;
+  }
+
 
   if (status_energy == 1) {
 
@@ -136,46 +126,27 @@ void loop() {
 
 uint32_t Wheel(byte intensity) {
 
-  RainbowColor = RainbowColor - ColorChanger;
-  if (RainbowColor == 0) {
-    RainbowColor = 150;
+  RainbowColor = RainbowColor + ColorChanger;
+  if (RainbowColor == 150) {
+    ColorChanger = -1;
   }
-//  if (RainbowColor == 0) {
-//    ColorChanger = 1;
-//  }
+  if (RainbowColor == 0) {
+    ColorChanger = 1;
+  }
 
   float mappedintensity = map(intensity, 0, 150, 0, 100) * 0.01;
-  //  float mappedintensity = map(intensity, 0, 150, 0, 5) * 0.01;
-  Serial.print("mappedintesnity");
+
   Serial.print(mappedintensity);
   Serial.print("       ");
-  Serial.print("RainbowColor");
-  Serial.print(RainbowColor);
-  Serial.print("       ");
-  Serial.print("r");
-  Serial.print(r);
-  Serial.print("       ");
-  Serial.print("g");
-  Serial.print(g);
-  Serial.print("       ");
-  Serial.print("b");
-  Serial.println(b);
+  Serial.println(RainbowColor);
 
-  if (RainbowColor <= 50) {
-    r = 150 - RainbowColor;
-    g = 0;
-    b = RainbowColor ;
-    return pixels1.Color(r * mappedintensity, g * mappedintensity, b * mappedintensity);
-  } if (RainbowColor <= 100) {
-    r = 0;
-    g = RainbowColor;
-    b = 150 - RainbowColor * 1,5;
-    return pixels1.Color(r * mappedintensity, g * mappedintensity, b * mappedintensity );
+  if (RainbowColor < 35) {
+    return pixels1.Color(255 * mappedintensity, 0, 255 * mappedintensity);
+  } else if (RainbowColor < 100) {
+    return pixels1.Color(mappedintensity * 255, 255 * mappedintensity , 0 );
   } else {
-    r = RainbowColor;
-    g = 150 - RainbowColor;
-    b =  0;
-    return pixels1.Color(r * mappedintensity, g * mappedintensity, b * mappedintensity);
+    return pixels1.Color(0, 255 * mappedintensity, 255 * mappedintensity);
+
   }
 
 }

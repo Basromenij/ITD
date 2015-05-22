@@ -14,6 +14,8 @@
 #define NUMPIXELS2      3
 
 
+
+
 boolean status_energy = 1;
 
 const int teller = 8;
@@ -38,7 +40,7 @@ void setup() {
   pinMode ( 6, INPUT_PULLUP);
   pinMode (teller, INPUT);
   pinMode (druk, INPUT);
-  //  pinMode (schakel, INPUT);
+//  pinMode (schakel, INPUT);
 
   pixels1.begin(); // This initializes the NeoPixel library.
   pixels2.begin(); // This initializes the NeoPixel libr nary.
@@ -46,26 +48,27 @@ void setup() {
 }
 
 void loop() {
-
-//  Serial.print("waarde van x: ");
-//  Serial.println(x);
-  //  Serial.println(" ");
-  //  Serial.print("status teller");
-  //  Serial.println(digitalRead(teller));
-  //  Serial.println(" ");
-//  Serial.print("status druk");
-//  Serial.println(digitalRead(druk));
-  //  Serial.println(" ");
-
+  Serial.print("waarde van x: ");
+  Serial.println(x);
+  Serial.println(" ");
+  Serial.print("status teller");
+  Serial.println(digitalRead(teller));
+      Serial.println(" ");
+  Serial.print("status druk");
+  Serial.println(digitalRead(druk));
+  Serial.println(" ");
+  
   if (digitalRead(druk) == HIGH) {
-//    Serial.println("poepchineeeees");
+    Serial.println("poepchineeeees");
     status_energy = 1;
   }
 
 
+
+
   if (status_energy == 1) {
 
-    //    if (digitalRead(druk) == HIGH && digitalRead(schakel) == LOW) // schakel lamp
+//    if (digitalRead(druk) == HIGH && digitalRead(schakel) == LOW) // schakel lamp
 
     if (digitalRead(druk) == HIGH)
 
@@ -74,8 +77,8 @@ void loop() {
       for (fadeValue ; fadeValue > 0; fadeValue -= stepSize)
       {
         x = (int) 1 * fadeValue;
-        Serial.print("waarde van x: ");
-        Serial.println(x);
+        Serial.print(x);
+        Serial.print("   ");
         Serial.println(digitalRead(druk));
         pixels1.setPixelColor(0, pixels1.Color(x, x, x)); // sets a white color for neopix with a brightness x
         pixels1.setPixelColor(1, pixels1.Color(x, x, x)); // sets a white color for neopix with a brightness x
@@ -101,97 +104,102 @@ void loop() {
 
 
         delay(delayval); // Delay for a period of time (in milliseconds).
+        
 
-
-      }
+      } 
 
     }
+    
+// //      if (digitalRead(druk) == HIGH && digitalRead(schakel) == HIGH) // schakel lamp
+//
+//    {
+//      for (fadeValue ; fadeValue > 0; fadeValue -= stepSize)
+//      {
+//        x = (int) 1 * fadeValue;
+//        Serial.print(x);
+//        Serial.print("   ");
+//        Serial.println(digitalRead(druk));
+//        pixels1.setPixelColor(0, pixels1.Color(x, x, x)); // sets a white color for neopix with a brightness x
+//        pixels1.setPixelColor(1, pixels1.Color(x, x, x)); // sets a white color for neopix with a brightness x
+//        pixels1.setPixelColor(2, pixels1.Color(x, x, x)); // sets a white color for neopix with a brightness x
+//        pixels2.setPixelColor(0 , 0); // turns off neopix
+//        pixels2.setPixelColor(1 , 0); // turns off neopix
+//        pixels2.setPixelColor(2 , 0 ); // turns off neopix
+//        pixels1.show(); // This sends the updated pixel color to the hardware.
+//        pixels2.show(); // This sends the updated pixel color to the hardware.
+//
+//        if (x == 0)
+//
+//        {
+//          status_energy = 0 ;
+//          break;
+//          Serial.println("waarde is nu een");
+//
+//        }
+//        if ((digitalRead(druk)) == LOW)  {     // turn other led strip on
+//          Serial.print(" hij komt in de break if");
+//          break;
+//        }
+//
+//
+//        delay(delayval); // Delay for a period of time (in milliseconds).
+//      }
 
-    // //      if (digitalRead(druk) == HIGH && digitalRead(schakel) == HIGH) // schakel lamp
-    //
-    //    {
-    //      for (fadeValue ; fadeValue > 0; fadeValue -= stepSize)
-    //      {
-    //        x = (int) 1 * fadeValue;
-    //        Serial.print(x);
-    //        Serial.print("   ");
-    //        Serial.println(digitalRead(druk));
-    //        pixels1.setPixelColor(0, pixels1.Color(x, x, x)); // sets a white color for neopix with a brightness x
-    //        pixels1.setPixelColor(1, pixels1.Color(x, x, x)); // sets a white color for neopix with a brightness x
-    //        pixels1.setPixelColor(2, pixels1.Color(x, x, x)); // sets a white color for neopix with a brightness x
-    //        pixels2.setPixelColor(0 , 0); // turns off neopix
-    //        pixels2.setPixelColor(1 , 0); // turns off neopix
-    //        pixels2.setPixelColor(2 , 0 ); // turns off neopix
-    //        pixels1.show(); // This sends the updated pixel color to the hardware.
-    //        pixels2.show(); // This sends the updated pixel color to the hardware.
-    //
-    //        if (x == 0)
-    //
-    //        {
-    //          status_energy = 0 ;
-    //          break;
-    //          Serial.println("waarde is nu een");
-    //
-    //        }
-    //        if ((digitalRead(druk)) == LOW)  {     // turn other led strip on
-    //          Serial.print(" hij komt in de break if");
-    //          break;
-    //        }
-    //
-    //
-    //        delay(delayval); // Delay for a period of time (in milliseconds).
-    //      }
+    } 
+    
+    
+    
+    
+    
 
-  }
+    else {
 
-  else {
+      x = (int) 1 * fadeValue;
+      Serial.print(x);
+      Serial.print("   ");
+      Serial.println(digitalRead(druk));
 
-    x = (int) 1 * fadeValue;
-    Serial.print(x);
-    Serial.print("   ");
-    Serial.println(digitalRead(druk));
-
-    pixels1.setPixelColor(0 , 0); // turns off neopix
-    pixels1.setPixelColor(1 , 0); // turns off neopix.
-    pixels1.setPixelColor(2 , 0 ); // turns off neopix
-    pixels2.setPixelColor(0, pixels2.Color(x, x, x)); // sets a white color for neopix with a brightness x
-    pixels2.setPixelColor(1, pixels2.Color(x, x, x)); // sets a white color for neopix with a brightness x
-    pixels2.setPixelColor(2, pixels2.Color(x, x, x)); // sets a white color for neopix with a brightness x.
-    pixels1.show(); // This sends the updated pixel color to the hardware.
-    pixels2.show(); // This sends the updated pixel color to the hardware.
+      pixels1.setPixelColor(0 , 0); // turns off neopix
+      pixels1.setPixelColor(1 , 0); // turns off neopix.
+      pixels1.setPixelColor(2 , 0 ); // turns off neopix
+      pixels2.setPixelColor(0, pixels2.Color(x, x, x)); // sets a white color for neopix with a brightness x
+      pixels2.setPixelColor(1, pixels2.Color(x, x, x)); // sets a white color for neopix with a brightness x
+      pixels2.setPixelColor(2, pixels2.Color(x, x, x)); // sets a white color for neopix with a brightness x.
+      pixels1.show(); // This sends the updated pixel color to the hardware.
+      pixels2.show(); // This sends the updated pixel color to the hardware.
 
 
-    if (digitalRead(teller) == HIGH) {
-      for (fadeValue ; fadeValue < 150; fadeValue += 1)
-      {
+      if (digitalRead(teller) == HIGH) {
+        for (fadeValue ; fadeValue < 150; fadeValue += 1)
+       { 
         Serial.print("hij is aan het tellen");
         fadeValue ++;
         break;
+       }
+       
+//       delay(delayval);
       }
 
-      //       delay(delayval);
+
+
+      //        x = (int)1 * fadeValue;
+      //        Serial.print(x);
+      //        Serial.print("hij komt in de loop van de teller");
+      //        Serial.println(digitalRead(druk));
+      //
+      //        pixels1.setPixelColor(0 , 0); // turns off neopix
+      //        pixels1.setPixelColor(1 , 0); // turns off neopix.
+      //        pixels1.setPixelColor(2 , 0 ); // turns off neopix
+      //        pixels2.setPixelColor(0, pixels2.Color(x, x, x)); // sets a white color for neopix with a brightness x
+      //        pixels2.setPixelColor(1, pixels2.Color(x, x, x)); // sets a white color for neopix with a brightness x
+      //        pixels2.setPixelColor(2, pixels2.Color(x, x, x)); // sets a white color for neopix with a brightness x.
+      //        pixels1.show(); // This sends the updated pixel color to the hardware.
+      //        pixels2.show(); // This sends the updated pixel color to the hardware.
+
     }
 
-
-
-    //        x = (int)1 * fadeValue;
-    //        Serial.print(x);
-    //        Serial.print("hij komt in de loop van de teller");
-    //        Serial.println(digitalRead(druk));
-    //
-    //        pixels1.setPixelColor(0 , 0); // turns off neopix
-    //        pixels1.setPixelColor(1 , 0); // turns off neopix.
-    //        pixels1.setPixelColor(2 , 0 ); // turns off neopix
-    //        pixels2.setPixelColor(0, pixels2.Color(x, x, x)); // sets a white color for neopix with a brightness x
-    //        pixels2.setPixelColor(1, pixels2.Color(x, x, x)); // sets a white color for neopix with a brightness x
-    //        pixels2.setPixelColor(2, pixels2.Color(x, x, x)); // sets a white color for neopix with a brightness x.
-    //        pixels1.show(); // This sends the updated pixel color to the hardware.
-    //        pixels2.show(); // This sends the updated pixel color to the hardware.
-
+    //      delay (delayval); // Delay for a period of time (in milliseconds)
   }
-
-  //      delay (delayval); // Delay for a period of time (in milliseconds)
-}
 
 // }
 // }

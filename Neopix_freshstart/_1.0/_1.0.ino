@@ -19,9 +19,13 @@ int r =                   0;
 int g =                   0;
 int b =                   0;
 
+<<<<<<< HEAD
 int Brightness =          1500;
 
 int RainbowColor =       0;
+=======
+int RainbowColor =       100;
+>>>>>>> parent of ed57b35... Making my own gradually fading rainbow with an overal maximum brightness
 int ColorChanger =       1;
 
 float fadeValue =        150;
@@ -47,6 +51,18 @@ void setup() {
 
 void loop() {
 
+  //  if (digitalRead(druk) == HIGH) {
+  //    //    Serial.println("poepchineeeees");
+  //    status_energy = 1;
+  //  }
+  //
+  //  if (digitalRead(schakelaar) == HIGH) {
+  //  Serial.println("poepchineeeees");
+  // }
+  //
+  //   if (digitalRead(schakelaar) == LOW) {
+  //   Serial.println("chineesdekak");
+  // }
 
   if (status_energy == 1) {
 
@@ -111,7 +127,11 @@ void loop() {
 
     telwaarde = digitalRead(teller);
     if (telwaarde == HIGH) {
+<<<<<<< HEAD
       for (fadeValue ; fadeValue < 150; Brightness += 1) {
+=======
+      for (fadeValue ; fadeValue < 150; fadeValue += 1) {
+>>>>>>> parent of ed57b35... Making my own gradually fading rainbow with an overal maximum brightness
         Serial.print("hij is aan het tellen");
         fadeValue ++;
         break;
@@ -126,12 +146,21 @@ void loop() {
 
 uint32_t Wheel(byte intensity) {
 
+<<<<<<< HEAD
   RainbowColor = RainbowColor + ColorChanger;
   if (RainbowColor == Brightness) {
     RainbowColor = 0 ;
+=======
+  RainbowColor = RainbowColor - ColorChanger;
+  if (RainbowColor == 0) {
+    RainbowColor = 150;
+>>>>>>> parent of ed57b35... Making my own gradually fading rainbow with an overal maximum brightness
   }
+//  if (RainbowColor == 0) {
+//    ColorChanger = 1;
+//  }
 
-
+<<<<<<< HEAD
   float mappedintensity = map(intensity, 0, Brightness, 0, 100) * 0.01;
   
   int MappedRainbowColor1 = map(RainbowColor, 0, 24, 0, Brightness);
@@ -141,6 +170,10 @@ uint32_t Wheel(byte intensity) {
   int MappedRainbowColor5 = map(RainbowColor, 100, 124, 0, Brightness);
   int MappedRainbowColor6 = map(RainbowColor, 125, 150, Brightness, 0);
 
+=======
+  float mappedintensity = map(intensity, 0, 150, 0, 100) * 0.01;
+  //  float mappedintensity = map(intensity, 0, 150, 0, 5) * 0.01;
+>>>>>>> parent of ed57b35... Making my own gradually fading rainbow with an overal maximum brightness
   Serial.print("mappedintesnity");
   Serial.print(mappedintensity);
   Serial.print("       ");
@@ -156,38 +189,19 @@ uint32_t Wheel(byte intensity) {
   Serial.print("b");
   Serial.println(b);
 
-
-
-
-  if (RainbowColor <= 25) {
-    r = Brightness;
+  if (RainbowColor <= 50) {
+    r = 150 - RainbowColor;
     g = 0;
-    b = MappedRainbowColor1;
+    b = RainbowColor ;
     return pixels1.Color(r * mappedintensity, g * mappedintensity, b * mappedintensity);
-  } if (RainbowColor <= 50) {
-    r = MappedRainbowColor2;
-    g = 0;
-    b = Brightness;
-    return pixels1.Color(r * mappedintensity, g * mappedintensity, b * mappedintensity );
-  } if (RainbowColor <= 75) {
+  } if (RainbowColor <= 100) {
     r = 0;
-    g = MappedRainbowColor3;
-    b = Brightness;
-    return pixels1.Color(r * mappedintensity, g * mappedintensity, b * mappedintensity);
-  }
-  if (RainbowColor <= 100) {
-    r = 0;
-    g = Brightness;
-    b = MappedRainbowColor4;
-        return pixels1.Color(r * mappedintensity, g * mappedintensity, b * mappedintensity);
-  } if (RainbowColor <= 125) {
-    r = MappedRainbowColor5;
-    g = Brightness;
-    b = 0;
+    g = RainbowColor;
+    b = 150 - RainbowColor * 1,5;
     return pixels1.Color(r * mappedintensity, g * mappedintensity, b * mappedintensity );
-  } if (RainbowColor <= 150) {
-    r = Brightness;
-    g = MappedRainbowColor6;
+  } else {
+    r = RainbowColor;
+    g = 150 - RainbowColor;
     b =  0;
     return pixels1.Color(r * mappedintensity, g * mappedintensity, b * mappedintensity);
   }

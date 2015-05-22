@@ -19,7 +19,7 @@ int r =                   0;
 int g =                   0;
 int b =                   0;
 
-int Brightness =          150;
+int Brightness =          1500;
 
 int RainbowColor =       0;
 int ColorChanger =       1;
@@ -29,8 +29,8 @@ float fadeValue =        150;
 Adafruit_NeoPixel pixels1 = Adafruit_NeoPixel(NUMPIXELS1, PIN1, NEO_GRB + NEO_KHZ800);
 Adafruit_NeoPixel pixels2 = Adafruit_NeoPixel(NUMPIXELS2, PIN2, NEO_GRB + NEO_KHZ800);
 
-int delayval = 50; // delay for half a second
-int delayval2 = 5; // delay for half a second
+int delayval = 5; // delay for half a second
+int delayval2 = 0.5; // delay for half a second
 
 void setup() {
 
@@ -111,7 +111,7 @@ void loop() {
 
     telwaarde = digitalRead(teller);
     if (telwaarde == HIGH) {
-      for (fadeValue ; fadeValue < ; Brightness += 1) {
+      for (fadeValue ; fadeValue < 150; Brightness += 1) {
         Serial.print("hij is aan het tellen");
         fadeValue ++;
         break;
@@ -127,12 +127,12 @@ void loop() {
 uint32_t Wheel(byte intensity) {
 
   RainbowColor = RainbowColor + ColorChanger;
-  if (RainbowColor == 150) {
+  if (RainbowColor == Brightness) {
     RainbowColor = 0 ;
   }
 
 
-  float mappedintensity = map(intensity, 0, 150, 0, 100) * 0.01;
+  float mappedintensity = map(intensity, 0, Brightness, 0, 100) * 0.01;
   
   int MappedRainbowColor1 = map(RainbowColor, 0, 24, 0, Brightness);
   int MappedRainbowColor2 = map(RainbowColor, 25, 49, Brightness, 0);

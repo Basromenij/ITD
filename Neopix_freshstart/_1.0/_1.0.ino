@@ -111,7 +111,7 @@ void loop() {
 
     telwaarde = digitalRead(teller);
     if (telwaarde == HIGH) {
-      for (fadeValue ; fadeValue < ; Brightness += 1) {
+      for (fadeValue ; fadeValue <150 ; Brightness += 1) {
         Serial.print("hij is aan het tellen");
         fadeValue ++;
         break;

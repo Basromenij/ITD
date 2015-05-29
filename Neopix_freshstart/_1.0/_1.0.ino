@@ -19,14 +19,14 @@ int r =                   0;
 int g =                   0;
 int b =                   0;
 
-int Brightness =          500;
+int Brightness =          255;
 int resolutie   =         50;
 
 int RainbowColor =       0;
 int ColorChanger =       1;
 
 float fadeValue =        150;
-int maxbrightness =      150;
+int maxx =      150;
 
 Adafruit_NeoPixel pixels1 = Adafruit_NeoPixel(NUMPIXELS1, PIN1, NEO_GRB + NEO_KHZ800);
 Adafruit_NeoPixel pixels2 = Adafruit_NeoPixel(NUMPIXELS2, PIN2, NEO_GRB + NEO_KHZ800);
@@ -79,8 +79,10 @@ void loop() {
     }
 
     if (digitalRead(druk) == HIGH && digitalRead(schakelaar) == LOW) { // SPECIAL RAINBOW
+
       for (fadeValue ; fadeValue > 0; fadeValue -= stepSize) {
         x = fadeValue;
+//        int colourValue = Wheel(x);
         for (int i = 0; i < 3; i++) {
           pixels1.setPixelColor(i, Wheel(x));
           pixels2.setPixelColor(i, 0); // sets a white color for neopix with a brightness x
@@ -113,7 +115,7 @@ void loop() {
 
       telwaarde = digitalRead(teller);
       if (telwaarde == HIGH) {
-        for (fadeValue ; fadeValue <= maxbrightness ; Brightness += 1) {
+        for (fadeValue ; fadeValue <= maxx ; Brightness += 1) {
           Serial.print("hij is aan het tellen");
           fadeValue ++;
           break;
@@ -135,14 +137,14 @@ void loop() {
     }
 
 
-    float mappedintensity = map(intensity, 0, maxbrightness, 0, 100) * 0.01;
-
-    int MappedRainbowColor1 = map(RainbowColor, 0, resolutie , 0, Brightness);
-    int MappedRainbowColor2 = map(RainbowColor, resolutie + 1 , resolutie * 2 + 1, Brightness, 0);
-    int MappedRainbowColor3 = map(RainbowColor, resolutie * 2 + 2 , resolutie * 3 + 2, 0, Brightness);
-    int MappedRainbowColor4 = map(RainbowColor, resolutie * 3 + 3 , resolutie * 4 + 3, Brightness, 0);
-    int MappedRainbowColor5 = map(RainbowColor, resolutie * 4 + 4 , resolutie * 5 + 4, 0, Brightness);
-    int MappedRainbowColor6 = map(RainbowColor, resolutie * 5 + 5 , resolutie * 6 + 5, Brightness, 0);
+    float mappedintensity = map(intensity, 0, maxx, 0, 100) * 0.01;
+// 0 - 6e deel van alle telwaardes     0 - 42 
+    int MappedRainbowColor1 = map(RainbowColor, 0, 24 , 0, resolutie);
+    int MappedRainbowColor2 = map(RainbowColor, 25 , 50, resolutie + 1 , resolutie * 2 + 1);
+    int MappedRainbowColor3 = map(RainbowColor, 51 ,75, resolutie * 2 + 2 , resolutie * 3 + 2 );
+    int MappedRainbowColor4 = map(RainbowColor, 76, 100, resolutie * 3 + 3 , resolutie * 4 + 3);
+    int MappedRainbowColor5 = map(RainbowColor, 101, 125, resolutie * 4 + 4 , resolutie * 5 + 4);
+    int MappedRainbowColor6 = map(RainbowColor, 126, 150, resolutie * 5 + 5 , resolutie * 6 + 5);
 
     Serial.print("mappedintesnity");
     Serial.print(mappedintensity);

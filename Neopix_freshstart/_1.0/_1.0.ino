@@ -19,8 +19,8 @@ int r =                   0;
 int g =                   0;
 int b =                   0;
 
-int Brightness =          256;
-int resolutie   =         42;
+int Brightness =          500;
+int resolutie   =         50;
 
 int RainbowColor =       0;
 int ColorChanger =       1;
@@ -130,7 +130,7 @@ void loop() {
 
     RainbowColor = RainbowColor + ColorChanger;
 
-    if (RainbowColor == 255) {
+    if (RainbowColor == 150) {
       RainbowColor = 0 ;
     }
 

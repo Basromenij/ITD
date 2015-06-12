@@ -18,7 +18,7 @@ boolean status_energy =   1;
 int delayval = 50;
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(38400);
   pinMode(druk1, INPUT);
   pinMode(druk2, INPUT);
   pinMode(led1, OUTPUT);
@@ -27,49 +27,49 @@ void setup() {
 }
 
 void loop() {
-  //  if (Serial.available() > 0) {
+ if (Serial.available() > 0) {
   x = Serial.read();
-  stand1 = digitalRead(druk1);
-  stand2 = digitalRead(druk2);
-
-  Serial.print("x");
-  Serial.print(x);
-  Serial.print("      ");
-  Serial.print("druk1");
-  Serial.print(druk1);
-  Serial.print("      ");
-  Serial.print("druk2");
-  Serial.println(druk2);
-
-  if (stand1 == HIGH) {
-    digitalWrite(led1, HIGH);
-    delay (500);
-    digitalWrite(led1, LOW);
-  }
-
-  if (status_energy == 0) {
-    status_energy == 1;
-  }
-
-  if (status_energy == 1); {
-    if (stand1 == 1 && stand2 == 0) {
-      x --;
+//  stand1 = digitalRead(druk1);
+//  stand2 = digitalRead(druk2);
+//
+//  Serial.print("x");
+//  Serial.print(x);
+//  Serial.print("      ");
+//  Serial.print("druk1");
+//  Serial.print(druk1);
+//  Serial.print("      ");
+//  Serial.print("druk2");
+//  Serial.println(druk2);
+//
+//  if (stand1 == HIGH) {
+//    digitalWrite(led1, HIGH);
+//    delay (500);
+//    digitalWrite(led1, LOW);
+//  }
+//
+//  if (status_energy == 0) {
+//    status_energy == 1;
+//  }
+//
+//  if (status_energy == 1); {
+//    if (stand1 == 1 && stand2 == 0) {
+//      x --;
       for (int i = 0; i < 60; i++) {
         pixels1.setPixelColor(i, x);
         pixels1.show();
       }
-      if (x == 0) {
-        status_energy = 0;
-      }
-      delay(delayval); // Delay for a period of time (in milliseconds).
-    }
-    else {
-      for (int i = 0; i < 60; i++) {
-        pixels1.setPixelColor(i, 0);
-        pixels1.show();
-      }
-    }
-
+//      if (x == 0) {
+//        status_energy = 0;
+//      }
+//      delay(delayval); // Delay for a period of time (in milliseconds).
+//    }
+//    else {
+//      for (int i = 0; i < 60; i++) {
+//        pixels1.setPixelColor(i, 0);
+//        pixels1.show();
+//      }
+//    }
+//
   }
 }
 

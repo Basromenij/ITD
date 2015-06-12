@@ -6,7 +6,7 @@ int x = 0;
 boolean status_energy =   1;
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(3840);
   pinMode(tilt, INPUT);
   pinMode(led, OUTPUT);
 }
@@ -15,13 +15,13 @@ void loop() {
   //  if (Serial.available() > 0) {
 
   digitalWrite(led, HIGH);
-  boolean status_energy =   1;
+//  boolean status_energy =   1;
+//
+//  if (x < 255) {
+//    status_energy = 1 ;
+//  }
 
-  if (x < 255) {
-    status_energy = 1 ;
-  }
-
-  if (status_energy == 1) {
+//  if (status_energy == 1) {
     if ((digitalRead (tilt) == HIGH)) {
       x++;
       Serial.write(x);
@@ -29,11 +29,12 @@ void loop() {
       digitalWrite(led, LOW);
       delay(500);
       if (x == 255) {
-        status_energy = 0 ;
+        x = 0;
+//        status_energy = 0 ;
       }
     }
   }
-}
+
 
 //    stand = digitalRead(drukknop);
 //    Serial.write(stand);

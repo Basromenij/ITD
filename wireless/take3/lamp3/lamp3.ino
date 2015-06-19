@@ -4,8 +4,11 @@
 #define PIN1              3
 #define druk1             2
 #define druk2             4
+#define druk3             7
+#define druk4             8
+
 #define led1              5
-#define led2             6
+#define led2              6
 
 #define NUMPIXELS1        60
 
@@ -17,6 +20,10 @@ int stand1 = 0;
 int currentState = 0;
 int switch0 = 0;
 int switch1 = 0;
+int badWeather = 0;
+int sportingTogether = 0;
+
+
 int delayval = 50;
 
 void setup() {
@@ -32,36 +39,51 @@ void loop() {
 
   switch0 = digitalRead(druk1);
   switch1 = digitalRead(druk2);
+  badWeather = digitalRead(druk3);
+  sportingTogether = digitalRead(druk4);
 
-  if (switch0 == 0  && currentState != 0) {
-    analogWrite(led1, 255);
-    analogWrite(led2, 255);
+  if (Serial.available() > 0) {
+    x = Serial.read();
+  }
 
-    Serial.println(0);
+  if (switch0 == 0  && sportingTogether == 0 &&  currentState != 0) {
+    //    analogWrite(led1, 0);
+    //    analogWrite(led2, 255);
+    Serial.write(0);
     currentState = 0;
-    delay(100);
+    delay(500);
   }
 
-  if (switch0 == 1 && switch1 == 0 && currentState != 1) {
+  if (switch0 == 0 && sportingTogether == 1 && currentState != 1) {
+    //    analogWrite(led1, 255);
+    //    analogWrite(led2, 0);
 
-    analogWrite(led1, 255);
-    analogWrite(led2, 0);
-
-    Serial.println(1);
+    Serial.write(1);
     currentState = 1;
-    delay(100);
-
+    delay(500);
   }
 
-  if (switch0 == 1  && switch1 == 1 && currentState != 2 ) {
 
-    analogWrite(led2, 255);
-    analogWrite(led1, 0);
-
-    Serial.println(2);
+  if (switch0 == 1 && switch1 == 0 && currentState != 2) {
+    Serial.write(2);
     currentState = 2;
     delay(100);
+  }
 
+  if (switch0 == 1  && switch1 == 0 ) {
+    analogWrite(led1, x);
+    analogWrite(led2, 255);
+  }
+
+  if (switch0 == 1  && switch1 == 1 && currentState != 3 ) {
+    Serial.write(3);
+    currentState = 3;
+    delay(100);
+  }
+  
+    if (switch0 == 1  && switch1 == 1 ) {
+    analogWrite(led1, 255);
+    analogWrite(led2, x);
   }
 
 

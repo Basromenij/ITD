@@ -39,7 +39,7 @@ void loop() {
 
   switch0 = digitalRead(druk1);
   switch1 = digitalRead(druk2);
-  badWeather = digitalRead(druk3);
+//  badWeather = digitalRead(druk3);
   sportingTogether = digitalRead(druk4);
 
   if (Serial.available() > 0) {

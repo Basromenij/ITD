@@ -50,7 +50,7 @@ void loop() {
 
   if (currentState == 1) {
     if (currentMillis - previousMillis1 >= interval) {
-      previousMillis0 = currentMillis;
+      previousMillis1 = currentMillis;
 
       if (digitalRead (tilt) == HIGH && sportState1 != 0)  {
         x =  x + stapGrootteOptellen;

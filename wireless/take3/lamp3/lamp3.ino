@@ -12,6 +12,8 @@
 
 #define NUMPIXELS1        45
 
+#define buttonDelay       100
+
 Adafruit_NeoPixel pixels1 = Adafruit_NeoPixel(NUMPIXELS1, PIN1, NEO_GRB + NEO_KHZ800);
 
 uint8_t x =                0;
@@ -51,27 +53,37 @@ void loop() {
   }
 
   if (switch0 == 0  && sportingTogether == 0 &&  currentState != 0) {
-    //    analogWrite(led1, 0);
-    //    analogWrite(led2, 255);
+    analogWrite(led1, 0);
+    analogWrite(led2, 255);
+
     Serial.write(0);
     currentState = 0;
-    delay(500);
+    delay(buttonDelay);
+
+    for (int i = 0; i < 46; i++) {
+      pixels1.setPixelColor(i, 0 , 0 , 0 );
+      pixels1.show();
+    }
   }
 
   if (switch0 == 0 && sportingTogether == 1 && currentState != 1) {
-    //    analogWrite(led1, 255);
-    //    analogWrite(led2, 0);
+    analogWrite(led1, 0);
+    analogWrite(led2, 255);
 
+    for (int i = 0; i < 46; i++) {
+      pixels1.setPixelColor(i, 0 , 0 , 0 );
+      pixels1.show();
+    }
     Serial.write(1);
     currentState = 1;
-    delay(500);
+    delay(buttonDelay);
   }
 
 
   if (switch0 == 1 && switch1 == 0 && currentState != 2) {
     Serial.write(2);
     currentState = 2;
-    delay(100);
+    delay(buttonDelay);
   }
 
   if (switch0 == 1  && switch1 == 0 ) {
@@ -79,12 +91,14 @@ void loop() {
       pixels1.setPixelColor(i, x , 0 , 0 );
       pixels1.show();
     }
+    analogWrite(led1, 255);
+    analogWrite(led2, 0);
   }
 
   if (switch0 == 1  && switch1 == 1 && currentState != 3 ) {
     Serial.write(3);
     currentState = 3;
-    delay(100);
+    delay(buttonDelay);
   }
 
   if (switch0 == 1  && switch1 == 1 ) {
@@ -92,6 +106,8 @@ void loop() {
       pixels1.setPixelColor(i, 0 , 0 , x );
       pixels1.show();
     }
+    analogWrite(led1, 255);
+    analogWrite(led2, 0);
   }
 
 

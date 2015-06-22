@@ -10,18 +10,22 @@
 #define led1              5
 #define led2              6
 
-#define NUMPIXELS1        60
+#define NUMPIXELS1        45
 
 Adafruit_NeoPixel pixels1 = Adafruit_NeoPixel(NUMPIXELS1, PIN1, NEO_GRB + NEO_KHZ800);
 
-uint8_t x = 0;
-int stand2 = 0;
-int stand1 = 0;
-int currentState = 0;
-int switch0 = 0;
-int switch1 = 0;
-int badWeather = 0;
-int sportingTogether = 0;
+uint8_t x =                0;
+int stand2 =               0;
+int stand1 =               0;
+int currentState =         0;
+int switch0 =              0;
+int switch1 =              0;
+int badWeather =           0;
+int sportingTogether =     0;
+//int r =                    0;
+//int g =                    0;
+//int b =                    0;
+int i =                    0;
 
 
 int delayval = 50;
@@ -39,7 +43,7 @@ void loop() {
 
   switch0 = digitalRead(druk1);
   switch1 = digitalRead(druk2);
-//  badWeather = digitalRead(druk3);
+  //  badWeather = digitalRead(druk3);
   sportingTogether = digitalRead(druk4);
 
   if (Serial.available() > 0) {
@@ -71,8 +75,10 @@ void loop() {
   }
 
   if (switch0 == 1  && switch1 == 0 ) {
-    analogWrite(led1, x);
-    analogWrite(led2, 255);
+    for (int i = 0; i < 46; i++) {
+      pixels1.setPixelColor(i, x , 0 , 0 );
+      pixels1.show();
+    }
   }
 
   if (switch0 == 1  && switch1 == 1 && currentState != 3 ) {
@@ -80,10 +86,12 @@ void loop() {
     currentState = 3;
     delay(100);
   }
-  
-    if (switch0 == 1  && switch1 == 1 ) {
-    analogWrite(led1, 255);
-    analogWrite(led2, x);
+
+  if (switch0 == 1  && switch1 == 1 ) {
+    for (int i = 0; i < 46; i++) {
+      pixels1.setPixelColor(i, 0 , 0 , x );
+      pixels1.show();
+    }
   }
 
 

@@ -1,11 +1,11 @@
-const int tilt = 7;
-const int led1 = 6;
-const int led2 = 3;
-const int stapGrootteOptellen = 10;
-const int stapGrootteAftellen = 1;
-const int maxBrightness = 255;
-const int aftelDelay = 50;  //470
-const long interval = 50;
+const int tilt =                   7;
+const int led1 =                   6;
+const int led2 =                   3;
+const int stapGrootteOptellen =   10;
+const int stapGrootteAftellen =     1;
+const int maxBrightness =         250;
+const int aftelDelay =            470;
+const long interval =              50;
 
 unsigned long previousMillis0 = 0;
 unsigned long previousMillis1 = 0;

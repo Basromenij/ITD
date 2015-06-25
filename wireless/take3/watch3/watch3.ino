@@ -96,7 +96,7 @@ void loop() {
       analogWrite(led1, x );
       analogWrite(led2, x );
       Serial.write(x);
-      delay(aftelDelay);
+      delay(aftelDelay);  // naar milis
     }
   }
 }
